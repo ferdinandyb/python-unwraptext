@@ -2,6 +2,11 @@ import sys
 import argparse
 import select
 
+from .unwraptext import unwrap_markdown
+
+
+TYPELIST = ["markdown", "latex"]
+
 
 def main():
     """Entry point for the application script"""
@@ -22,4 +27,5 @@ def main():
     if text is None:
         sys.exit(1)
     else:
-        sys.stdout.write(text)
+        if args.filetype == "markdown" or args.filetype not in TYPELIST:
+            sys.stdout.write(unwrap_markdown(text))
